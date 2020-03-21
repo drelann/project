@@ -94,5 +94,28 @@ router.get("/number/:number", function(request, response) {
   response.render('index', { data: data });
 });
 
+/* Задание 2 */
+
+router.get("/calculus", function(request, response) {
+  let a = request.query.a;
+  let b = request.query.b;
+  let c = request.query.c;
+  let data = "";
+
+  let d = Math.pow(b, 2) - 4 * a * c;
+  if (d < 0) {
+    data = "корней нет (D < 0)";
+  } 
+  else if (d === 0) {
+    let x = -b / (2 * a);
+    data = `x = ${x}, (D = 0)`;
+  } else {
+    let x1 = (-b + Math.pow(d, 1/2)) / (2 * a);
+    let x2 = (-b - Math.pow(d,1 / 2)) / (2 * a);
+    data = `x1 = ${x1} x2 = ${x2} (D > 0)`;
+  }
+
+  response.render('index', { data: data });
+});
 
 module.exports = router;
