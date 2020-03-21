@@ -138,4 +138,24 @@ router.get("/day", function(request, response) {
   response.render('index', { data: data });
 });
 
+/* Задание 4*/
+
+router.get("/fibonacci/:number", function(request, responce) {
+  let n = +request.params["number"];
+  let data = "";
+  if (n >= 0) {
+    let a = 1;
+    let b = 1;
+
+    for (let i = 3; i <= n; i++) {
+      let temp = a + b;
+      a = b;
+      b = temp;
+    }
+    data = b.toString();
+  } else data = "отрицательное число";
+  
+  response.render('index', { data: data });
+});
+
 module.exports = router;
