@@ -152,7 +152,7 @@ const DAYS = [
 
 /* Задание 1 */
 
-router.get("/number/:number", function(request, response) {
+router.get("/number/:number", function(request, responce) {
   let length = +request.params["number"] >= 0 ? request.params["number"].length : request.params["number"].length - 1;
   let number = Math.abs(+request.params["number"]);
   let data = +request.params["number"] >= 0 ? "" : "минус ";
@@ -191,12 +191,12 @@ router.get("/number/:number", function(request, response) {
     }
   }
 
-  response.render('index', { data: data });
+  responce.render('index', { data: data });
 });
 
 /* Задание 2 */
 
-router.get("/calculus", function(request, response) {
+router.get("/calculus", function(request, responce) {
   let a = request.query.a;
   let b = request.query.b;
   let c = request.query.c;
@@ -215,17 +215,17 @@ router.get("/calculus", function(request, response) {
     data = `x1 = ${x1} x2 = ${x2} (D > 0)`;
   }
 
-  response.render('index', { data: data });
+  responce.render('index', { data: data });
 });
 
 /* Задание 3 */
 
-router.get("/day", function(request, response) {
-  let query = request.query["date"];
-  let date = new Date(query);
+router.get("/day", function(request, responce) {
+  let query = request.query["date"].split(".");
+  let date = new Date(`${query[2]}-${query[1]}-${query[0]}`);
   let dayNumber = date.getDay();
   let data = DAYS[dayNumber];
-  response.render('index', { data: data });
+  responce.render('index', { data: data });
 });
 
 /* Задание 4*/
@@ -245,7 +245,7 @@ router.get("/fibonacci/:number", function(request, responce) {
     data = b.toString();
   } else data = "отрицательное число";
 
-  response.render('index', { data: data });
+  responce.render('index', { data: data });
 });
 
 /* Задание  5 */
@@ -255,10 +255,10 @@ router.get("/regions/:region", function(request, responce) {
 
   for (let i = 0; i < REGIONS.length; i++) {
     if (REGIONS[i][0] === region) {
-      response.render('index', { data: REGIONS[i][1] });
+      responce.render('index', { data: REGIONS[i][1] });
     }
   }
-  response.render('index', { data: "региона нет" });
+  responce.render('index', { data: "региона нет" });
 });
 
 module.exports = router;
