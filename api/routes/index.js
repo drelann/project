@@ -50,6 +50,16 @@ const NUMBERS = [
   ]
 ];
 
+const DAYS = [
+  "воскресенье",
+  "понедельник",
+  "вторник",
+  "среда",
+  "четверг",
+  "пятница",
+  "суббота"
+];
+
 /* Задание 1 */
 
 router.get("/number/:number", function(request, response) {
@@ -115,6 +125,16 @@ router.get("/calculus", function(request, response) {
     data = `x1 = ${x1} x2 = ${x2} (D > 0)`;
   }
 
+  response.render('index', { data: data });
+});
+
+/* Задание 3 */
+
+router.get("/day", function(request, response) {
+  let query = request.query["date"];
+  let date = new Date(query);
+  let dayNumber = date.getDay();
+  let data = DAYS[dayNumber];
   response.render('index', { data: data });
 });
 
