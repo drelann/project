@@ -2,6 +2,7 @@
 
 Общее
 
+- Зависимости /api - npm install
 - Сервер /api - npm start
 
 ---
