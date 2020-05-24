@@ -20,10 +20,10 @@
 
 Лаба 2
 
--СУБД MySQL
--Роутер /api/routes/laba2.js
--Пути /api/routes/laba2.js
--SQL /api/database
+- СУБД MySQL
+- Роутер /api/routes/laba2.js
+- Пути /api/routes/laba2.js
+- SQL /api/database
 
 ---
 
