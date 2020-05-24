@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser")
 var logger = require("morgan")
 
 var laba1Router = require("./routes/laba1")
+var laba2Router = require("./routes/laba2")
 var laba4Router = require("./routes/laba4")
 
 var app = express()
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/laba1", laba1Router)
+app.use("/laba2", laba2Router)
 app.use("/laba4", laba4Router)
 
 // catch 404 and forward to error handler
