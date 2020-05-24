@@ -18,6 +18,15 @@
 
 ---
 
+Лаба 2
+
+-СУБД MySQL
+-Роутер /api/routes/laba2.js
+-Пути /api/routes/laba2.js
+-SQL /api/database
+
+---
+
 Лаба 4
 
 - Роутер /api/routes/laba4.js

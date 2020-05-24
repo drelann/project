@@ -110,10 +110,101 @@ router.get("/insert/services", function (request, response) {
 		.catch((error) => response.send(error))
 })
 
-//insert client http://localhost:8000/insert/client?name=clientName&phone=clientPhone
+//delete application http://localhost:8000/delete/application?id=applicationId
 
-router.get("/delete/application?id=applicationId", function (request, response) {})
+router.get("/delete/application", function (request, response) {
+	const id = request.query["id"]
 
-router.get("/update", function (request, response) {})
+	db("services_app")
+		.where("application_id", "=", +id)
+		.del()
+		.then(() =>
+			db("application")
+				.where("id", "=", +id)
+				.del()
+				.then(() => response.send("Данные удалены"))
+		)
+		.catch((error) => response.send(error))
+})
+
+//delete service http://localhost:8000/delete/service?id=serviceId
+
+router.get("/delete/service", function (request, response) {
+	const id = request.query["id"]
+
+	db("service")
+		.where("id", "=", id)
+		.del()
+		.then(() => response.send("Данные удалены"))
+		.catch((error) => response.send(error))
+})
+
+//delete client http://localhost:8000/delete/client?id=clientId
+
+router.get("/delete/client", function (request, response) {
+	const id = request.query["id"]
+
+	db("client")
+		.where("id", "=", id)
+		.del()
+		.then(() => response.send("Данные удалены"))
+		.catch((error) => response.send(error))
+})
+
+//update application http://localhost:8000/update/application?id=applicationId&client=clientId&services=id1,id2..
+
+router.get("/update/application", function (request, response) {
+	const applicationId = request.query["id"]
+	const clientId = request.query["client"]
+	const services = request.query["services"].split(",")
+
+	db("application")
+		.where("id", "=", applicationId)
+		.update({ client_id: clientId })
+		.then(() =>
+			db("services_app")
+				.where("application_id", "=", applicationId)
+				.del()
+				.then(() => {
+					const values = services.map((service) => ({
+						application_id: +applicationId,
+						service_id: +service,
+					}))
+
+					db("services_app")
+						.insert(values)
+						.then(() => response("Данные обновлены!"))
+				})
+		)
+		.catch((error) => response.send(error))
+})
+
+//update service http://localhost:8000/update/service?id=serviceId&name=serviceName&price=servicePrice
+
+router.get("/update/service", function (request, response) {
+	const serviceId = request.query["id"]
+	const name = request.query["name"]
+	const price = request.query["price"]
+
+	db("service")
+		.where("id", "=", serviceId)
+		.update({ name, price })
+		.then(() => response("Данные обновлены!"))
+		.catch((error) => response.send(error))
+})
+
+//update client http://localhost:8000/update/client?id=clientId&name=clientName&phone=clientPhone
+
+router.get("/update/client", function (request, response) {
+	const clientId = request.query["id"]
+	const name = request.query["name"]
+	const phone = request.query["phone"]
+
+	db("client")
+		.where("id", "=", clientId)
+		.update({ name, phone })
+		.then(() => response("Данные обновлены!"))
+		.catch((error) => response.send(error))
+})
 
 module.exports = router
