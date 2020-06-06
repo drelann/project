@@ -1,12 +1,19 @@
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import axios from "axios"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Container from "@material-ui/core/Container"
 import { makeStyles } from "@material-ui/core/styles"
-import { URL_LABA2 } from "../../constants"
 import Form1 from "../form1/form1"
 import TableForm from "../table-form/table-form"
+import {
+	getApplications,
+	getClients,
+	getServices,
+	changeClient,
+	changeService,
+	deleteClient,
+	deleteService,
+} from "../../api/index"
 import { setApplications, setClients, setServices } from "../../actions/actionsCreator"
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +27,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Laba5Home = () => {
-	const getApplications = () => axios.get(`${URL_LABA2}/select/application`)
-
-	const getServices = () => axios.get(`${URL_LABA2}/select/service`)
-
-	const getClients = () => axios.get(`${URL_LABA2}/select/client`)
-
 	const dispatch = useDispatch()
 	const { applications, services, clients } = useSelector((state) => state.laba5Reducer)
 	const classes = useStyles()
@@ -44,9 +45,19 @@ const Laba5Home = () => {
 		<>
 			<CssBaseline />
 			<Container className={classes.container} maxWidth='md'>
-				<Form1 />
-				<TableForm header='Список услуг' data={services} />
-				<TableForm header='Список клиентов' data={clients} />
+				<Form1 clients={clients} services={services} />
+				<TableForm
+					header='Список услуг'
+					data={services}
+					handleSave={changeService}
+					handleDelete={deleteService}
+				/>
+				<TableForm
+					header='Список клиентов'
+					data={clients}
+					handleSave={changeClient}
+					handleDelete={deleteClient}
+				/>
 			</Container>
 		</>
 	)

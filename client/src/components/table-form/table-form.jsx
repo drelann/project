@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer"
 import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
+import TableFormRow from "../table-form-row/table-form-row"
 
 const useStyles = makeStyles({
 	table: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const TableForm = ({ header, data }) => {
+const TableForm = ({ header, data, handleSave, handleDelete }) => {
 	const isEmpty = data?.length === 0
 	const headData = isEmpty ? null : Object.keys(data[0])
 	const classes = useStyles()
@@ -33,15 +34,17 @@ const TableForm = ({ header, data }) => {
 								{headData.map((text, index) => (
 									<TableCell key={index}>{text}</TableCell>
 								))}
+								<TableCell align='right'>Действия</TableCell>
 							</TableRow>
 						</TableHead>
 						<TableBody>
 							{data.map((item, i) => (
-								<TableRow key={i}>
-									{Object.values(item).map((value, j) => (
-										<TableCell key={`${i}-${j}`}>{value}</TableCell>
-									))}
-								</TableRow>
+								<TableFormRow
+									key={i}
+									values={item}
+									handleSave={handleSave}
+									handleDelete={handleDelete}
+								/>
 							))}
 						</TableBody>
 					</Table>

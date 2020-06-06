@@ -15,8 +15,12 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const FormDate = ({ name, defaultValue }) => {
+const FormDate = ({ name, value, setValue }) => {
 	const classes = useStyles()
+
+	const handleChange = (e) => {
+		setValue(e.target.value)
+	}
 
 	return (
 		<FormControl className={classes.formControl}>
@@ -24,7 +28,7 @@ const FormDate = ({ name, defaultValue }) => {
 				name={name}
 				label='Дата'
 				type='date'
-				defaultValue={defaultValue}
+				value={value}
 				className={classes.textField}
 				InputLabelProps={{
 					shrink: true,

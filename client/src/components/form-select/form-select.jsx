@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import InputLabel from "@material-ui/core/InputLabel"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const FormSelect = ({ name, label, data, isMultiple }) => {
+const FormSelect = ({ name, label, data = [], isMultiple, value, setValue }) => {
 	const classes = useStyles()
-	const [value, setValue] = useState(isMultiple ? [] : "")
 
 	const handleChange = (e) => {
 		setValue(e.target.value)
@@ -34,12 +33,11 @@ const FormSelect = ({ name, label, data, isMultiple }) => {
 				label={label}
 				multiple={isMultiple}
 			>
-				<MenuItem value=''>
-					<em>None</em>
-				</MenuItem>
-				<MenuItem value={10}>Ten</MenuItem>
-				<MenuItem value={20}>Twenty</MenuItem>
-				<MenuItem value={30}>Thirty</MenuItem>
+				{data.map((item, index) => (
+					<MenuItem key={index} value={item.id}>
+						{item.name}
+					</MenuItem>
+				))}
 			</Select>
 		</FormControl>
 	)
