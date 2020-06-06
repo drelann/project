@@ -12,6 +12,7 @@ router.get("/select/application", function (request, response) {
 		.select({
 			id: "app.id",
 			date: "app.date",
+			clientId: "clt.id",
 			client: "clt.name",
 		})
 		.where("app.client_id", "=", db.ref("clt.id"))
@@ -20,6 +21,7 @@ router.get("/select/application", function (request, response) {
 			db({ srv: "service", sfa: "services_app" })
 				.select({
 					applicationId: "sfa.application_id",
+					serviceId: "srv.id",
 					service: "srv.name",
 				})
 				.where("sfa.service_id", "=", db.ref("srv.id"))
@@ -29,7 +31,8 @@ router.get("/select/application", function (request, response) {
 						const services = []
 						for (let i = 0; i < result.length; i++) {
 							if (result[i].applicationId === application.id) {
-								services.push(result[i].service)
+								const { serviceId, service } = result[i]
+								services.push({ serviceId, service })
 							}
 						}
 						return { ...application, services }

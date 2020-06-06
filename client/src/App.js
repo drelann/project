@@ -1,5 +1,6 @@
 import React from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
+import Laba5Home from "./components/laba5_home/laba5_home"
 
 function App() {
 	return (
@@ -8,7 +9,9 @@ function App() {
 				<Redirect to='/laba5' />
 			</Route>
 
-			<Route path='/laba5'></Route>
+			<Route path='/laba5'>
+				<Laba5Home />
+			</Route>
 
 			<Route path='/laba6'></Route>
 
