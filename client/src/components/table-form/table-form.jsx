@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import TableFormRow from "../table-form-row/table-form-row"
+import TableFormRow2 from "../table-form-row2/table-form-row2"
 
 const useStyles = makeStyles({
 	table: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
 	},
 })
 
-const TableForm = ({ header, data, handleSave, handleDelete }) => {
+const TableForm = ({ header, data, handleSave, handleDelete, isApplication }) => {
 	const isEmpty = data?.length === 0
 	const headData = isEmpty ? null : Object.keys(data[0])
 	const classes = useStyles()
@@ -38,14 +39,23 @@ const TableForm = ({ header, data, handleSave, handleDelete }) => {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{data.map((item, i) => (
-								<TableFormRow
-									key={i}
-									values={item}
-									handleSave={handleSave}
-									handleDelete={handleDelete}
-								/>
-							))}
+							{data.map((item, i) =>
+								isApplication ? (
+									<TableFormRow2
+										key={i}
+										values={item}
+										handleSave={handleSave}
+										handleDelete={handleDelete}
+									/>
+								) : (
+									<TableFormRow
+										key={i}
+										values={item}
+										handleSave={handleSave}
+										handleDelete={handleDelete}
+									/>
+								)
+							)}
 						</TableBody>
 					</Table>
 				</TableContainer>

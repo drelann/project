@@ -33,6 +33,7 @@ const FormDate = ({ name, value, setValue }) => {
 				InputLabelProps={{
 					shrink: true,
 				}}
+				onChange={handleChange}
 			/>
 		</FormControl>
 	)

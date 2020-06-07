@@ -2,8 +2,9 @@
 
 Общее
 
-- Зависимости /api - npm install
+- Зависимости /api and /client - npm install
 - Сервер /api - npm start
+- Клиент /api - npm start
 
 ---
 
@@ -31,3 +32,8 @@
 
 - Роутер /api/routes/laba4.js
 - Путь localhost:8000/laba4/answer
+
+Лаба 5
+
+- Клиент /client
+- Запросы к серверу /client/api/index.js

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import TextField from "@material-ui/core/TextField"
@@ -8,8 +8,9 @@ const TableFormRow = ({ values = {}, handleSave, handleDelete }) => {
 	const valuesArray = Object.values(values)
 
 	const [text, setText] = useState({
-		value1: "",
-		value2: "",
+		id: valuesArray[0],
+		value1: valuesArray[1],
+		value2: valuesArray[2],
 	})
 
 	const handleTextChange = (e) => {
@@ -29,17 +30,8 @@ const TableFormRow = ({ values = {}, handleSave, handleDelete }) => {
 
 	const deleteButtonClick = () => {
 		handleDelete(text.id)
+		window.location.reload()
 	}
-
-	useEffect(() => {
-		if (valuesArray.length !== 0) {
-			setText({
-				id: valuesArray[0],
-				value1: valuesArray[1],
-				value2: valuesArray[2],
-			})
-		}
-	}, [valuesArray, setText])
 
 	return (
 		<TableRow>

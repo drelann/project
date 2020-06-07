@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import FormSelect from "../form-select/form-select"
-import FormDate from "../form-date/form-date"
 import Button from "@material-ui/core/Button"
-import { addApplications } from "../../api/index"
+import { addApplication } from "../../api/index"
 
 const useStyles = makeStyles((theme) => ({
 	content: {
@@ -13,13 +12,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }))
 
-const Form1 = ({ addApplication, clients, services }) => {
+const Form1 = ({ clients, services }) => {
 	const classes = useStyles()
 	const [client, setClient] = useState("")
 	const [servicesArray, setServices] = useState([])
 
 	const handleClick = () => {
-		addApplications(client, servicesArray.join(","))
+		addApplication(client, servicesArray.join(","))
 		window.location.reload()
 	}
 
